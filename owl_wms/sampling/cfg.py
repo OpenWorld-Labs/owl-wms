@@ -3,8 +3,15 @@ from torch import nn
 import torch.nn.functional as F
 
 class CFGSampler:
+    def __init__(self, n_steps = 20, cfg_scale = 1.3):
+        self.n_steps = n_steps
+        self.cfg_scale = cfg_scale
+
     @torch.no_grad()
-    def __call__(self, model, dummy_batch, mouse, btn, sampling_steps = 64, decode_fn = None, scale = 1, cfg_scale = 1.3):
+    def __call__(self, model, dummy_batch, mouse, btn, decode_fn = None, scale = 1):
+        sampling_steps = self.n_steps
+        cfg_scale = self.cfg_scale
+        
         x = torch.randn_like(dummy_batch)
         ts = torch.ones(x.shape[0], x.shape[1], device=x.device,dtype=x.dtype)
         dt = 1. / sampling_steps
@@ -25,11 +32,14 @@ class CFGSampler:
         if decode_fn is not None:
             x = x * scale 
             x = decode_fn(x)
-        return x
+        return x, mouse, btn
 
-class InpaintCFGSampler:
+class InpaintCFGSampler(CFGSampler):
     @torch.no_grad()
-    def __call__(self, model, dummy_batch, mouse, btn, sampling_steps = 64, decode_fn = None, scale = 1, cfg_scale = 1.5):
+    def __call__(self, model, dummy_batch, mouse, btn, decode_fn = None, scale = 1):
+        sampling_steps = self.n_steps
+        cfg_scale = self.cfg_scale
+        
         x = torch.randn_like(dummy_batch)
 
         ts = torch.ones(x.shape[0], x.shape[1], device=x.device, dtype=x.dtype)
@@ -56,7 +66,7 @@ class InpaintCFGSampler:
         if decode_fn is not None:
             x = x * scale
             x = decode_fn(x)
-        return x
+        return x, mouse, btn
 
 if __name__ == "__main__":
     model = lambda x,t,m,b: x

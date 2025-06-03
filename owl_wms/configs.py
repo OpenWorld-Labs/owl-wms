@@ -17,7 +17,9 @@ class TransformerConfig:
 
     cfg_prob : float = 0.1
     n_buttons : int = 8
-    tokens_per_frame: int = 16
+    tokens_per_frame : int = 16
+
+    causal : bool = False
 
 @dataclass
 class TrainingConfig:
@@ -50,6 +52,9 @@ class TrainingConfig:
     vae_scale : float = 0.13
     vae_batch_size: int = 8
     n_samples: int = 8 # For sampling
+
+    sampler_id : str = None
+    sampler_kwargs : dict = None
 
 @dataclass
 class WANDBConfig:

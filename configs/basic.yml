@@ -46,12 +46,13 @@ train:
   sample_interval: 1000
   save_interval: 5000
 
-  sampler_id: cfg
+  sampler_id: window
   sampler_kwargs:
-    sampler_id: cfg
     n_steps: 20
     cfg_scale: 1.3
-    window_length: 32
+    window_length: 60
+    num_frames: 60
+    noise_prev: 0.2
     
   vae_batch_size: 16
   vae_scale: 2.17

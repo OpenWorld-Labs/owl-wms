@@ -56,3 +56,28 @@ def find_unused_params(model):
     for name, param in model.named_parameters():
         if param.grad is None:
             print(f"Parameter {name} has no gradient")
+
+@torch.no_grad()
+def batch_permute(mouse, button, factor = 1):
+    """
+    mouse: [b,n,2]
+    button: [b,n,n_button]
+
+    Clones mouse/button, randomly permutes along first dim, then concatenates
+    Used to increase effective size of inputs for sampling purposes
+    """
+
+    for _ in range(factor):
+        mouse_clone = mouse.clone()
+        button_clone = button.clone()
+
+        inds = torch.randperm(mouse.size(0))
+        mouse_clone = mouse_clone[inds]
+        button_clone = button_clone[inds]
+
+        mouse = torch.cat([mouse, mouse_clone], dim = 1)
+        button = torch.cat([button, button_clone], dim = 1)
+
+    return mouse, button
+    
+

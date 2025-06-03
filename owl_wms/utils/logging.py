@@ -2,6 +2,8 @@ import torch.distributed as dist
 import wandb
 import torch
 
+import einops as eo
+
 import numpy as np
 from .vis import draw_frames
 
@@ -54,9 +56,12 @@ class LogHelper:
         self.data = {}
         return final
 
-def to_wandb(x, batch_mouse, batch_btn, gather = False):
+@torch.no_grad()
+def to_wandb(x, batch_mouse, batch_btn, gather = False, max_samples = 8):
     # x is [b,n,c,h,w]
     x = x.clamp(-1, 1)
+    x = x[:max_samples]
+a
 
     if dist.is_initialized() and gather:
         gathered = [None for _ in range(dist.get_world_size())]
@@ -64,6 +69,10 @@ def to_wandb(x, batch_mouse, batch_btn, gather = False):
         x = torch.cat(gathered, dim=0)
 
     # Get labels on them
-    x = draw_frames(x, batch_mouse, batch_btn)
-    return [wandb.Video(vid, format='mp4',fps=60) for vid in x]
+    x = draw_frames(x, batch_mouse, batch_btn) # -> [b,n,c,h,w] [0,255] uint8 np
+
+    if max_samples == 8:
+        x = eo.rearrange(x, '(r c) n c h w -> n c (r h) (c w)', r = 2, c = 4)
+
+    return wandb.Video(x, format='gif',fps=60)
     
