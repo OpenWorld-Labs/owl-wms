@@ -88,7 +88,7 @@ class FlatVideoRoPE(nn.Module):
 class LearnedPosEnc(nn.Module):
     def __init__(self, n_seq, dim):
         super().__init__()
-
+        # n_seq is tokens_per_frame * n_frames, dim is d_model
         self.p = nn.Parameter(torch.randn(n_seq,dim)*0.02)
 
     def forward(self, x):

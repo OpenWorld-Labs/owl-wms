@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head><title>Open-World Labs</title></head>
+<body>
+    <canvas id="gameCanvas" width="256" height="256"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const ws = new WebSocket('ws://localhost:8000/ws/game');
+        
+        function sendAction(mouse_x, mouse_y, buttons) {
+            ws.send(JSON.stringify({
+                mouse_x, mouse_y, ...buttons
+            }));
+        }
+        
+        ws.onmessage = (event) => {
+            const frame = JSON.parse(event.data);
+            displayFrame(frame);
+        };
+        
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouse_x = (e.clientX - rect.left) / rect.width * 2 - 1;
+            const mouse_y = (e.clientY - rect.top) / rect.height * 2 - 1;
+            sendAction(mouse_x, mouse_y, getCurrentButtons());
+        });
+    </script>
+</body>
+</html>

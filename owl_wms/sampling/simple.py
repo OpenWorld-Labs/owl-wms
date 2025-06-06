@@ -15,9 +15,10 @@ class SimpleSampler:
             ts = ts - dt
 
         if decode_fn is not None:
-            x = x * scale
-            x = decode_fn(x)
-        return x
+            pixels = decode_fn(x * scale)
+        else:
+            pixels = None
+        return x, pixels
 
 class InpaintSimpleSampler:
     @torch.no_grad()
@@ -38,15 +39,7 @@ class InpaintSimpleSampler:
             ts[:, mid:] = ts[:, mid:] - dt
 
         if decode_fn is not None:
-            x = x * scale
-            x = decode_fn(x)
-        return x
-
-
-if __name__ == "__main__":
-    model = lambda x,t,m,b: x
-
-    sampler = Sampler()
-    x = sampler(model, torch.randn(4, 3, 64, 64), 
-                torch.randn(4, 2), torch.randn(4, 8))
-    print(x.shape)
+            pixels = decode_fn(x * scale)
+        else:
+            pixels = None
+        return x, pixels

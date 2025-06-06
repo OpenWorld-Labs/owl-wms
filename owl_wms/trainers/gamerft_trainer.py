@@ -178,7 +178,7 @@ class RFTTrainer(BaseTrainer):
                         if self.total_step_counter % self.train_cfg.sample_interval == 0:
                             with ctx, torch.no_grad():
                                 n_samples = self.train_cfg.n_samples
-                                samples = sampler(
+                                latents, samples = sampler(
                                     get_ema_core(),
                                     batch_vid[:n_samples],
                                     batch_mouse[:n_samples],
@@ -188,7 +188,6 @@ class RFTTrainer(BaseTrainer):
                                     scale=self.train_cfg.vae_scale
                                 ) # -> [b,n,c,h,w]
                                 wandb_dict['samples'] = to_wandb(samples, batch_mouse[:n_samples], batch_btn[:n_samples])
-                            
 
                         if self.rank == 0:
                             wandb.log(wandb_dict)

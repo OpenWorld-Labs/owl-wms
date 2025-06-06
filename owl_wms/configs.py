@@ -1,7 +1,7 @@
-from dataclasses import dataclass, field
-from typing import List, Optional
 import yaml
 from omegaconf import OmegaConf
+from dataclasses import dataclass
+
 
 @dataclass
 class TransformerConfig:
@@ -70,3 +70,4 @@ class Config:
         
         cfg = OmegaConf.create(raw_cfg)
         return OmegaConf.structured(cls(**cfg))
+
