@@ -32,8 +32,7 @@ btn = torch.randint(0, 1, (1,1,11)).bfloat16().cuda()
 
 dummy = (dummy_x, dummy_audio, ts, mouse, btn)
 
-torch.compile(world_model, mode = "max-autotune", fullgraph=True)
-
+world_model = torch.compile(world_model, mode = "max-autotune", fullgraph=True)
 res = profile_fn(world_model, dummy)
 
 print(f"Mean: {res['mean_time']:.2f}ms, {res['mean_memory']:.2f}MB")
