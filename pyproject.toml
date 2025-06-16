@@ -9,6 +9,17 @@ dependencies = [
     "torchvision>=0.22.0",
     "torchaudio>=2.7.0",
     "torchao",
+    "opencv-python>=4.11.0.86",
+    "wandb[media]>=0.20.1",
+    "einops>=0.8.1",
+    "rotary-embedding-torch>=0.8.6",
+    "ema-pytorch>=0.7.7",
+    "omegaconf>=2.3.0",
+    "diffusers>=0.33.1",
+    "accelerate>=1.7.0",
+    "boto3>=1.38.36",
+    "python-dotenv>=1.1.0",
+    "moviepy==1.0.3",
 ]
 
 [tool.setuptools.packages.find]

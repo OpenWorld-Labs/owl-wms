@@ -12,6 +12,8 @@ RUN apt-get update && \
     curl \
     git \
     ca-certificates \
+    less \
+    vim \
     software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
