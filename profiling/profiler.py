@@ -76,9 +76,9 @@ def get_fps(t):
 
 def print_results(res, header=None):
     if header:
-        print(header)
-    print(f"Mean: {res['mean_time']:.2f}ms, {res['mean_memory']:.2f}MB")
-    print(f"Min: {res['min_time']:.2f}ms, {res['min_memory']:.2f}MB")
-    print(f"Max: {res['max_time']:.2f}ms, {res['max_memory']:.2f}MB")
-    print(f"Std: {res['std_time']:.2f}ms, {res['std_memory']:.2f}MB")
-    print(f"Avg FPS: {1000./res['mean_time']:.2f}FPS")
+        print("* ", header, end = "    \n")
+    print(f"Mean: {res['mean_time']:.2f}ms, {res['mean_memory']:.2f}MB", end = "    \n")
+    print(f"Min: {res['min_time']:.2f}ms, {res['min_memory']:.2f}MB", end = "    \n")
+    print(f"Max: {res['max_time']:.2f}ms, {res['max_memory']:.2f}MB", end = "    \n")
+    print(f"Std: {res['std_time']:.2f}ms, {res['std_memory']:.2f}MB", end = "    \n")
+    print(f"Avg FPS: {1000./res['mean_time']:.2f}FPS", end = "\n\n")

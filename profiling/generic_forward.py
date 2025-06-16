@@ -21,14 +21,18 @@ wm_cfg = "configs/av.yml"
 vae_cfg = "configs/owl_vaes/cod_128x.yml"
 audio_vae_cfg = "configs/owl_vaes/cod_audio.yml"
 
-world_model = load_from_config(wm_cfg).core.bfloat16().cuda()
-img_dec = get_decoder_only(None, vae_cfg).decoder
-audio_dec = get_decoder_only(None, audio_vae_cfg).decoder
+world_model = load_from_config(wm_cfg).core.bfloat16().cuda().eval()
+img_dec = get_decoder_only(None, vae_cfg).decoder.bfloat16().cuda().eval()
+audio_dec = get_decoder_only(None, audio_vae_cfg).decoder.bfloat16().cuda().eval()
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
-print(f"World model parameters: {count_parameters(world_model):,}")
+print(f"World model parameters: {count_parameters(world_model):,}    ")
+print(f"Image decoder parameters: {count_parameters(img_dec):,}    ")
+print(f"Audio decoder parameters: {count_parameters(audio_dec):,}    ")
+print()
+
 
 ## Dummy Inputs
 dummy_x = torch.randn(1, 1, 128, 4, 4).bfloat16().cuda()
@@ -64,3 +68,11 @@ print_results(res_img, "Torch Compile - IMG")
 dummy_pred_audio = torch.randn(1, 64, 120).bfloat16().cuda()
 res_audio = profile_fn(compiled_audio_dec, dummy_pred_audio)
 print_results(res_audio, "Torch Compile - AUDIO")
+
+## Torch Compile with Torch-TensorRT
+
+## Torch Compile + FP8
+
+## Torch Compile + FP4
+
+
