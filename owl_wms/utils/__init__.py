@@ -57,6 +57,20 @@ def find_unused_params(model):
         if param.grad is None:
             print(f"Parameter {name} has no gradient")
 
+def load_from_config(cfg_path, ckpt_path = None):
+    from ..configs import Config
+    from ..models import get_model_cls
+
+    cfg = Config.from_yaml(cfg_path)
+    if hasattr(cfg, 'model'):
+        cfg = cfg.model
+    
+    model = get_model_cls(cfg.model_id)(cfg)
+    if ckpt_path is not None:
+        ckpt = torch.load(ckpt_path)
+        model.load_state_dict(ckpt_path)
+    return model
+
 @torch.no_grad()
 def batch_permute(mouse, button, factor = 1):
     """
