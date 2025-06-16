@@ -38,4 +38,10 @@ Max: 29.88ms, 2111.29MB
 Std: 0.30ms, 0.00MB
 Avg FPS: 34.35FPS
 
-2. 
+2. Compile mode = Max-autotune:
+World model parameters: 1,093,823,296
+Mean: 28.95ms, 2111.29MB
+Min: 28.64ms, 2111.29MB
+Max: 29.71ms, 2111.29MB
+Std: 0.31ms, 0.00MB
+Avg FPS: 34.54FPS
