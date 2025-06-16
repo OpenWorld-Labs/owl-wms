@@ -42,8 +42,8 @@ print(f"Min: {res['min_time']:.2f}ms")
 print(f"Max: {res['max_time']:.2f}ms")
 print(f"Avg FPS: {1000./res['mean_time']:.2f}FPS")
 
-img_dec = get_decoder_only(None, vae_cfg)
-audio_dec = get_decoder_only(None, audio_vae_cfg)
+# img_dec = get_decoder_only(None, vae_cfg)
+# audio_dec = get_decoder_only(None, audio_vae_cfg)
 
 """
 1B Model notes (for 1 step with KV cache)

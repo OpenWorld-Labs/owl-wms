@@ -29,6 +29,8 @@ dependencies = [
     "lpips",
     "muon-optimizer",
     "torchtyping",
+    "alias-free-torch>=0.0.6",
+    "convnext-perceptual-loss",
 ]
 
 [tool.setuptools.packages.find]
@@ -43,5 +45,6 @@ explicit = true
 torch = { index = "pytorch" }
 torchvision = { index = "pytorch" }
 torchaudio = { index = "pytorch" }
-lpips = { git = "https://github.com/shahbuland/PerceptualSimilarity" }
 muon-optimizer = { git = "https://github.com/KellerJordan/Muon" }
+lpips = { git = "https://github.com/shahbuland/PerceptualSimilarity" }
+convnext-perceptual-loss = { git = "https://github.com/sypsyp97/convnext_perceptual_loss" }
