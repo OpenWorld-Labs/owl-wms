@@ -1,4 +1,4 @@
-checkpoints/*
+checkpoints/**/*.pt
 venv/
 __pycache__/*
 generated_videos/
