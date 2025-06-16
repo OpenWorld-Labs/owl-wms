@@ -30,17 +30,8 @@ wget https://model-checkpoints.fly.storage.tigris.dev/av_dfot_85k_ema_200m.pt -O
 https://docs.pytorch.org/TensorRT/user_guide/torch_compile.html
 
 ## Optimization history:
-1. Initial state:
-World model parameters: 1,093,823,296
-Mean: 29.11ms, 2111.29MB
-Min: 28.83ms, 2111.29MB
-Max: 29.88ms, 2111.29MB
-Std: 0.30ms, 0.00MB
-Avg FPS: 34.35FPS
-
-2. Compile mode = Max-autotune:
-Mean: 3.03ms, 2101.61MB
-Min: 3.01ms, 2101.61MB
-Max: 3.06ms, 2101.61MB
-Std: 0.01ms, 0.00MB
-Avg FPS: 329.75FPS
+**1B Model notes (for 1 step with KV cache)**:
+1. Compile:
+Mean: 85.35ms | 10 FPS
+Min: 78.28ms
+Max: 93.37ms

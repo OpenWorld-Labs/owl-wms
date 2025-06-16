@@ -15,14 +15,14 @@ def time_with_cuda_events(func):
     end_event = torch.cuda.Event(enable_timing=True)
     
     start_event.record()
-    func()
+    output = func()
     end_event.record()
     
     # Wait for GPU to finish
     end_event.synchronize()
     
     # Get time in milliseconds, memory in MB
-    return start_event.elapsed_time(end_event), torch.cuda.max_memory_allocated()/1024**2
+    return start_event.elapsed_time(end_event), torch.cuda.max_memory_allocated()/1024**2, output
 
 
 @torch.inference_mode()
@@ -35,9 +35,10 @@ def profile_fn(fn, dummy_input, n_warmup=10, n_eval=10):
     inputs = x()
     def wrapper(inputs):
         if isinstance(inputs, tuple):
-            _ = fn(*inputs)
+            output = fn(*inputs)
         else:
-            _ = fn(inputs)
+            output = fn(inputs)
+        return output
 
     times = []
     memories = []
@@ -49,7 +50,7 @@ def profile_fn(fn, dummy_input, n_warmup=10, n_eval=10):
 
         for _ in range(n_eval):
             with torch.profiler.record_function('real execution'):
-                time, memory = time_with_cuda_events(lambda: wrapper(inputs))
+                time, memory, output = time_with_cuda_events(lambda: wrapper(inputs))
                 prof.step()
             times.append(time)
             memories.append(memory)
@@ -65,9 +66,19 @@ def profile_fn(fn, dummy_input, n_warmup=10, n_eval=10):
         'mean_memory': np.mean(memories),
         'min_memory': np.min(memories),
         'max_memory': np.max(memories),
-        'std_memory': np.std(memories)
+        'std_memory': np.std(memories),
+        'output': output
     }
 
 
 def get_fps(t):
     return 1. / t
+
+def print_results(res, header=None):
+    if header:
+        print(header)
+    print(f"Mean: {res['mean_time']:.2f}ms, {res['mean_memory']:.2f}MB")
+    print(f"Min: {res['min_time']:.2f}ms, {res['min_memory']:.2f}MB")
+    print(f"Max: {res['max_time']:.2f}ms, {res['max_memory']:.2f}MB")
+    print(f"Std: {res['std_time']:.2f}ms, {res['std_memory']:.2f}MB")
+    print(f"Avg FPS: {1000./res['mean_time']:.2f}FPS")
