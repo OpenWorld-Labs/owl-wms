@@ -1,0 +1,25 @@
+[project]
+name = "owl_wms"
+version = "0.1"
+description = "OWL World Models"
+read = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "torch>=2.7.0",
+    "torchvision>=0.22.0",
+    "torchaudio>=2.7.0",
+    "torchao",
+]
+
+[tool.setuptools.packages.find]
+include = ["owl_wms*"]
+
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch" }
+torchvision = { index = "pytorch" }
+torchaudio = { index = "pytorch" }

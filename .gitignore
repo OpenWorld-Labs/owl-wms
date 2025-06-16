@@ -1,0 +1,9 @@
+checkpoints/*
+venv/
+__pycache__/*
+generated_videos/
+owl-vaes/
+*.pt
+*.env
+*.pyc
+.vscode/*
