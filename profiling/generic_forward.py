@@ -5,8 +5,16 @@ from owl_wms.utils.owl_vae_bridge import get_decoder_only
 
 from profiling.timing import time_fn
 
-import torch._dynamo
+
+# torch.compile flags
 torch._dynamo.config.debug = True
+torch._inductor.config.conv_1x1_as_mm = True
+torch.backends.cuda.matmul.allow_tf32 = True
+torch.backends.cuda.matmul.allow_fp16_accumulation = True
+torch.backends.cudnn.benchmark = True
+# torch._dynamo.config.capture_scalar_outputs = True  # enable if using .item within torch.compile
+# torch._dynamo.config.reorderable_logging_functions.add(print)  # if want to use print within a torch.compile
+
 
 wm_cfg = "configs/av.yml"
 vae_cfg = "configs/owl_vaes/cod_128x.yml"
