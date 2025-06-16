@@ -28,3 +28,14 @@ wget https://model-checkpoints.fly.storage.tigris.dev/av_dfot_85k_ema_200m.pt -O
 ## Potential ideas:
 1. Use NVIDIA TensorRT backend instead of torch inductor for speedups on NVIDIA GPUs.
 https://docs.pytorch.org/TensorRT/user_guide/torch_compile.html
+
+## Optimization history:
+1. Initial state:
+World model parameters: 1,093,823,296
+Mean: 29.11ms, 2111.29MB
+Min: 28.83ms, 2111.29MB
+Max: 29.88ms, 2111.29MB
+Std: 0.30ms, 0.00MB
+Avg FPS: 34.35FPS
+
+2. 

@@ -37,9 +37,10 @@ dummy = (dummy_x, dummy_audio, ts, mouse, btn)
 
 torch.compile(world_model, dynamic = False, fullgraph=True)
 res = profile_fn(world_model, dummy)
-print(f"Mean: {res['mean_time']:.2f}ms")
-print(f"Min: {res['min_time']:.2f}ms")
-print(f"Max: {res['max_time']:.2f}ms")
+print(f"Mean: {res['mean_time']:.2f}ms, {res['mean_memory']:.2f}MB")
+print(f"Min: {res['min_time']:.2f}ms, {res['min_memory']:.2f}MB")
+print(f"Max: {res['max_time']:.2f}ms, {res['max_memory']:.2f}MB")
+print(f"Std: {res['std_time']:.2f}ms, {res['std_memory']:.2f}MB")
 print(f"Avg FPS: {1000./res['mean_time']:.2f}FPS")
 
 # img_dec = get_decoder_only(None, vae_cfg)
