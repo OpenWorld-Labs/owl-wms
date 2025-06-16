@@ -4,8 +4,7 @@ COPY --from=ghcr.io/astral-sh/uv:0.7.8 /uv /uvx /bin/
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    bash \
+    apt-get install -y bash \
     build-essential \
     procps \
     wget \
