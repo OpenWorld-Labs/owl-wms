@@ -7,3 +7,5 @@ owl-vaes/
 *.env
 *.pyc
 .vscode/*
+*.egg-info/*
+*trace.json

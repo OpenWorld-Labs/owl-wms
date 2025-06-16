@@ -2,7 +2,7 @@
 name = "owl_wms"
 version = "0.1"
 description = "OWL World Models"
-read = "README.md"
+readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "torch>=2.7.0",
@@ -20,6 +20,15 @@ dependencies = [
     "boto3>=1.38.36",
     "python-dotenv>=1.1.0",
     "moviepy==1.0.3",
+    "torchmetrics>=1.7.3",
+    "vector-quantize-pytorch>=1.22.16",
+    "ray>=2.47.0",
+    "kornia>=0.8.1",
+    "datasets>=3.6.0",
+    "huggingface-hub>=0.33.0",
+    "lpips",
+    "muon-optimizer",
+    "torchtyping",
 ]
 
 [tool.setuptools.packages.find]
@@ -34,3 +43,5 @@ explicit = true
 torch = { index = "pytorch" }
 torchvision = { index = "pytorch" }
 torchaudio = { index = "pytorch" }
+lpips = { git = "https://github.com/shahbuland/PerceptualSimilarity" }
+muon-optimizer = { git = "https://github.com/KellerJordan/Muon" }

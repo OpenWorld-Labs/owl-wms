@@ -3,15 +3,15 @@ import torch
 from owl_wms.utils import load_from_config
 from owl_wms.utils.owl_vae_bridge import get_decoder_only
 
-from profiling.timing import time_fn
+from .profiler import profile_fn
 
 
-# torch.compile flags
-torch._dynamo.config.debug = True
-torch._inductor.config.conv_1x1_as_mm = True
-torch.backends.cuda.matmul.allow_tf32 = True
-torch.backends.cuda.matmul.allow_fp16_accumulation = True
-torch.backends.cudnn.benchmark = True
+# # torch.compile flags
+# torch._dynamo.config.debug = True
+# torch._inductor.config.conv_1x1_as_mm = True
+# torch.backends.cuda.matmul.allow_tf32 = True
+# torch.backends.cuda.matmul.allow_fp16_accumulation = True
+# torch.backends.cudnn.benchmark = True
 # torch._dynamo.config.capture_scalar_outputs = True  # enable if using .item within torch.compile
 # torch._dynamo.config.reorderable_logging_functions.add(print)  # if want to use print within a torch.compile
 
@@ -36,11 +36,11 @@ btn = torch.randint(0, 1, (1,1,11)).bfloat16().cuda()
 dummy = (dummy_x, dummy_audio, ts, mouse, btn)
 
 torch.compile(world_model, dynamic = False, fullgraph=True)
-res = time_fn(world_model, dummy)
-print(f"Mean: {res['mean']:.2f}ms")
-print(f"Min: {res['min']:.2f}ms")
-print(f"Max: {res['max']:.2f}ms")
-print(f"Avg FPS: {1000./res['mean']:.2f}FPS")
+res = profile_fn(world_model, dummy)
+print(f"Mean: {res['mean_time']:.2f}ms")
+print(f"Min: {res['min_time']:.2f}ms")
+print(f"Max: {res['max_time']:.2f}ms")
+print(f"Avg FPS: {1000./res['mean_time']:.2f}FPS")
 
 img_dec = get_decoder_only(None, vae_cfg)
 audio_dec = get_decoder_only(None, audio_vae_cfg)

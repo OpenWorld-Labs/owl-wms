@@ -1,3 +1,7 @@
+"""
+This model is a simple implementation of torch.utils.benchmark.
+"""
+
 import torch
 import time
 import numpy as np
@@ -22,7 +26,7 @@ def time_with_cuda_events(func):
 
 
 @torch.inference_mode()
-def time_fn(fn, dummy_input, n_warmup=10, n_eval=10):
+def profile_fn(fn, dummy_input, n_warmup=10, n_eval=10):
     def x():
         if isinstance(dummy_input, tuple):
             return tuple(torch.randn_like(t) for t in dummy_input)
@@ -35,18 +39,24 @@ def time_fn(fn, dummy_input, n_warmup=10, n_eval=10):
         else:
             _ = fn(inputs)
 
-    for _ in range(n_warmup):
-        wrapper(inputs)
-
     times = []
     memories = []
-    for _ in range(n_eval):
-        time, memory = time_with_cuda_events(lambda: wrapper(inputs))
-        times.append(time)
-        memories.append(memory)
+    with torch.profiler.profile() as prof:
+        for _ in range(n_warmup):
+            with torch.profiler.record_function('warmup'):
+                wrapper(inputs)
+            prof.step()
+
+        for _ in range(n_eval):
+            with torch.profiler.record_function('real execution'):
+                time, memory = time_with_cuda_events(lambda: wrapper(inputs))
+                prof.step()
+            times.append(time)
+            memories.append(memory)
     times = np.array(times)
     memories = np.array(memories)
 
+    prof.export_chrome_trace('trace.json')
     return {
         'mean_time': np.mean(times),
         'min_time': np.min(times),
@@ -57,6 +67,7 @@ def time_fn(fn, dummy_input, n_warmup=10, n_eval=10):
         'max_memory': np.max(memories),
         'std_memory': np.std(memories)
     }
+
 
 def get_fps(t):
     return 1. / t
