@@ -5,10 +5,11 @@ A simple profiler like torch.utils.benchmark.
 import torch
 import time
 import numpy as np
-from physicsnemo.utils.profiling import Profiler, annotate
+from physicsnemo.utils.profiling import Profiler, annotate, profile
 
 
 @torch.inference_mode()
+@profile
 def time_with_cuda_events(func):
     torch.cuda.reset_peak_memory_stats()
     start_event = torch.cuda.Event(enable_timing=True)
@@ -42,18 +43,14 @@ def profile_fn(fn, dummy_input, n_warmup=10, n_eval=10):
             output = fn(inputs)
         return output
 
+    for _ in range(n_warmup):
+            wrapper(inputs)
+
     times = []
     memories = []
-
     with Profiler() as prof:
-        for _ in range(n_warmup):
-            with annotate('warmup', color='yellow'):
-                wrapper(inputs)
-            prof.step()
-
         for _ in range(n_eval):
-            with annotate('real execution', color='green'):
-                time, memory, output = time_with_cuda_events(lambda: wrapper(inputs))
+            time, memory, output = time_with_cuda_events(lambda: wrapper(inputs))
             prof.step()
             times.append(time)
             memories.append(memory)

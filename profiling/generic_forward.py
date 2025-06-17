@@ -12,7 +12,6 @@ from .profiler import profile_fn, print_results
 # PhysicsNemo Profiler which is a singleton class so can set the configs here
 profiler = Profiler()
 profiler.enable("torch")
-profiler.initialize()
 
 ## Torch Dynamo Setup
 allow_ops_in_compiled_graph()
@@ -76,26 +75,26 @@ dummy_pred_audio = torch.randn(1, 64, 120).bfloat16().cuda()
 res_audio = profile_fn(compiled_audio_dec, dummy_pred_audio)
 print_results(res_audio, "Torch Compile - AUDIO")
 
-## Torch Compile with Torch-TensorRT
-compiled_world_model = torch.compile(world_model, mode='max-autotune', dynamic=False, fullgraph=True)
-compiled_img_dec = torch.compile(img_dec, mode='max-autotune', dynamic=False, fullgraph=True)
-compiled_audio_dec = torch.compile(audio_dec, mode='max-autotune', dynamic=False, fullgraph=True)
+# ## Torch Compile with Torch-TensorRT
+# compiled_world_model = torch.compile(world_model, mode='max-autotune', dynamic=False, fullgraph=True)
+# compiled_img_dec = torch.compile(img_dec, mode='max-autotune', dynamic=False, fullgraph=True)
+# compiled_audio_dec = torch.compile(audio_dec, mode='max-autotune', dynamic=False, fullgraph=True)
 
-res_wm = profile_fn(compiled_world_model, dummy)
-print_results(res_wm, "Torch Compile - WM")
+# res_wm = profile_fn(compiled_world_model, dummy)
+# print_results(res_wm, "Torch Compile - WM")
 
-res_img = profile_fn(compiled_img_dec, dummy_x[0])
-print_results(res_img, "Torch Compile - IMG")
+# res_img = profile_fn(compiled_img_dec, dummy_x[0])
+# print_results(res_img, "Torch Compile - IMG")
 
-dummy_pred_audio = torch.randn(1, 64, 120).bfloat16().cuda()
-res_audio = profile_fn(compiled_audio_dec, dummy_pred_audio)
-print_results(res_audio, "Torch Compile - AUDIO")
+# dummy_pred_audio = torch.randn(1, 64, 120).bfloat16().cuda()
+# res_audio = profile_fn(compiled_audio_dec, dummy_pred_audio)
+# print_results(res_audio, "Torch Compile - AUDIO")
 
-## Torch Compile with Torch-TensorRT and OneDiff
+# ## Torch Compile with Torch-TensorRT and OneDiff
 
-## Torch Compile + FP8
+# ## Torch Compile + FP8
 
-## Torch Compile + FP4
+# ## Torch Compile + FP4
 
 
 profiler.finalize()
