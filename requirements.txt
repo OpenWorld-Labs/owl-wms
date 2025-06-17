@@ -19,8 +19,6 @@ datasets
 huggingface-hub
 torchtyping
 alias-free-torch
-
-# Git repositories
-git+https://github.com/KellerJordan/Muon.git
 git+https://github.com/shahbuland/PerceptualSimilarity.git
 git+https://github.com/sypsyp97/convnext_perceptual_loss.git
+git+https://github.com/KellerJordan/Muon.git

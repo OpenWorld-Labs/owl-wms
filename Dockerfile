@@ -18,7 +18,7 @@ RUN apt-get update && \
 WORKDIR /app
 COPY . .
 
-RUN python -m pip install -e .
+RUN python -m pip install -r requirements.txt
 
 RUN git submodule update --init --recursive
 
