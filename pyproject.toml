@@ -1,50 +1,16 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "owl_wms"
 version = "0.1"
 description = "OWL World Models"
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-    "torch>=2.7.0",
-    "torchvision>=0.22.0",
-    "torchaudio>=2.7.0",
-    "torchao",
-    "opencv-python>=4.11.0.86",
-    "wandb[media]>=0.20.1",
-    "einops>=0.8.1",
-    "rotary-embedding-torch>=0.8.6",
-    "ema-pytorch>=0.7.7",
-    "omegaconf>=2.3.0",
-    "diffusers>=0.33.1",
-    "accelerate>=1.7.0",
-    "boto3>=1.38.36",
-    "python-dotenv>=1.1.0",
-    "moviepy==1.0.3",
-    "torchmetrics>=1.7.3",
-    "vector-quantize-pytorch>=1.22.16",
-    "ray>=2.47.0",
-    "kornia>=0.8.1",
-    "datasets>=3.6.0",
-    "huggingface-hub>=0.33.0",
-    "lpips",
-    "muon-optimizer",
-    "torchtyping",
-    "alias-free-torch>=0.0.6",
-    "convnext-perceptual-loss",
-]
+dynamic = ["dependencies"]
 
 [tool.setuptools.packages.find]
 include = ["owl_wms*"]
 
-[[tool.uv.index]]
-name = "pytorch"
-url = "https://download.pytorch.org/whl/cu128"
-explicit = true
-
-[tool.uv.sources]
-torch = { index = "pytorch" }
-torchvision = { index = "pytorch" }
-torchaudio = { index = "pytorch" }
-muon-optimizer = { git = "https://github.com/KellerJordan/Muon" }
-lpips = { git = "https://github.com/shahbuland/PerceptualSimilarity" }
-convnext-perceptual-loss = { git = "https://github.com/sypsyp97/convnext_perceptual_loss" }
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}

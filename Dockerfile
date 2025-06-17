@@ -1,5 +1,4 @@
-FROM debian:bookworm-slim
-COPY --from=ghcr.io/astral-sh/uv:0.7.8 /uv /uvx /bin/
+FROM nvcr.io/nvidia/physicsnemo/physicsnemo:25.06
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -19,8 +18,7 @@ RUN apt-get update && \
 WORKDIR /app
 COPY . .
 
-RUN uv venv --python 3.12
-RUN uv sync
+RUN python -m pip install -e .
 
 RUN git submodule update --init --recursive
 

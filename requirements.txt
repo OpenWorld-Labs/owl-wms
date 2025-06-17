@@ -1,0 +1,26 @@
+torchao
+opencv-python
+wandb
+einops
+rotary-embedding-torch
+ema-pytorch
+omegaconf
+diffusers
+accelerate
+boto3
+python-dotenv
+moviepy
+wandb[media]
+torchmetrics
+vector-quantize-pytorch
+ray
+kornia
+datasets
+huggingface-hub
+torchtyping
+alias-free-torch
+
+# Git repositories
+git+https://github.com/KellerJordan/Muon.git
+git+https://github.com/shahbuland/PerceptualSimilarity.git
+git+https://github.com/sypsyp97/convnext_perceptual_loss.git
