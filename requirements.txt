@@ -1,0 +1,13 @@
+torchao
+opencv-python
+wandb
+einops
+rotary-embedding-torch
+ema-pytorch
+omegaconf
+diffusers
+accelerate
+boto3
+python-dotenv
+moviepy
+wandb[media]
