@@ -3,7 +3,8 @@
 We are aiming to hit relatively high frame-rates on models. The purpose of this folder is for profiling tests.
 
 ## Example run:
-python -m profiling.generic_forward
+TORCH_TRACE="/tmp/tracedir" python -m profiling.generic_forward
+tlparse /tmp/tracedir/<latest .log file> --overwrite
 
 ## Sample Model Checkpoints:
 audio vae:
