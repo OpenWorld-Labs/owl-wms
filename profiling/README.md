@@ -28,6 +28,11 @@ wget https://model-checkpoints.fly.storage.tigris.dev/av_dfot_85k_ema_200m.pt -O
 ## Potential ideas:
 1. Use NVIDIA TensorRT backend instead of torch inductor for speedups on NVIDIA GPUs.
 https://docs.pytorch.org/TensorRT/user_guide/torch_compile.html
+TorchInductor based default torch compiler is JIT. "This provides users the most runtime flexibility, however limits options regarding serialization."
+It still uses Torch-TensorRT but for subgraphs which are amenable.
+
+We can do Ahead-of-time (AOT) compilation with torch_tensorrt directly. This gives us maximum acceleration.
+For the subgraphs which are not Torch-TensorRT supported operators, we can add a PyTorch external Op to try and accelerate it.
 
 ## Optimization history:
 **1B Model notes (for 1 step with KV cache)**:
