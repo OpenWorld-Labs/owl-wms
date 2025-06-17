@@ -12,6 +12,8 @@ from .profiler import profile_fn, print_results
 # PhysicsNemo Profiler which is a singleton class so can set the configs here
 profiler = Profiler()
 profiler.enable("torch")
+profiler.initialize()
+
 ## Torch Dynamo Setup
 allow_ops_in_compiled_graph()
 # torch.compile flags
