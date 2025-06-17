@@ -1,10 +1,11 @@
 """
-This model is a simple implementation of torch.utils.benchmark.
+A simple profiler like torch.utils.benchmark.
 """
 
 import torch
 import time
 import numpy as np
+from physicsnemo.utils.profiling import Profiler, annotate
 
 
 @torch.inference_mode()
@@ -13,14 +14,14 @@ def time_with_cuda_events(func):
     torch.cuda.reset_peak_memory_stats()
     start_event = torch.cuda.Event(enable_timing=True)
     end_event = torch.cuda.Event(enable_timing=True)
-    
+
     start_event.record()
     output = func()
     end_event.record()
-    
+
     # Wait for GPU to finish
     end_event.synchronize()
-    
+
     # Get time in milliseconds, memory in MB
     return start_event.elapsed_time(end_event), torch.cuda.max_memory_allocated()/1024**2, output
 
@@ -33,6 +34,8 @@ def profile_fn(fn, dummy_input, n_warmup=10, n_eval=10):
         return torch.randn_like(dummy_input)
 
     inputs = x()
+
+    @torch.inference_mode()
     def wrapper(inputs):
         if isinstance(inputs, tuple):
             output = fn(*inputs)
@@ -42,22 +45,22 @@ def profile_fn(fn, dummy_input, n_warmup=10, n_eval=10):
 
     times = []
     memories = []
-    with torch.profiler.profile() as prof:
+
+    with Profiler() as prof:
         for _ in range(n_warmup):
-            with torch.profiler.record_function('warmup'):
+            with annotate('warmup', color='yellow'):
                 wrapper(inputs)
             prof.step()
 
         for _ in range(n_eval):
-            with torch.profiler.record_function('real execution'):
+            with annotate('real execution', color='green'):
                 time, memory, output = time_with_cuda_events(lambda: wrapper(inputs))
-                prof.step()
+            prof.step()
             times.append(time)
             memories.append(memory)
     times = np.array(times)
     memories = np.array(memories)
 
-    prof.export_chrome_trace('trace.json')
     return {
         'mean_time': np.mean(times),
         'min_time': np.min(times),

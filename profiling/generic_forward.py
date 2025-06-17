@@ -1,4 +1,6 @@
 import torch
+from physicsnemo.utils.profiling import Profiler
+
 from einops._torch_specific import allow_ops_in_compiled_graph  # requires einops>=0.6.1
 
 from owl_wms.utils import load_from_config
@@ -7,6 +9,9 @@ from owl_wms.utils.owl_vae_bridge import get_decoder_only
 from .profiler import profile_fn, print_results
 
 
+# PhysicsNemo Profiler which is a singleton class so can set the configs here
+profiler = Profiler()
+profiler.enable("torch")
 ## Torch Dynamo Setup
 allow_ops_in_compiled_graph()
 # torch.compile flags
@@ -84,8 +89,11 @@ dummy_pred_audio = torch.randn(1, 64, 120).bfloat16().cuda()
 res_audio = profile_fn(compiled_audio_dec, dummy_pred_audio)
 print_results(res_audio, "Torch Compile - AUDIO")
 
+## Torch Compile with Torch-TensorRT and OneDiff
+
 ## Torch Compile + FP8
 
 ## Torch Compile + FP4
 
 
+profiler.finalize()

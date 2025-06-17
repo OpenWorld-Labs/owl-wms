@@ -9,3 +9,4 @@ owl-vaes/
 .vscode/*
 *.egg-info/*
 *trace.json
+physicsnemo_profiling_outputs

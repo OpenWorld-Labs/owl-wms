@@ -3,7 +3,7 @@
 We are aiming to hit relatively high frame-rates on models. The purpose of this folder is for profiling tests.
 
 ## Example run:
-python -m profiling.generic_foreward
+python -m profiling.generic_forward
 
 ## Sample Model Checkpoints:
 audio vae:
@@ -19,11 +19,11 @@ wget https://model-checkpoints.fly.storage.tigris.dev/cod_128x_30k_ema.pt -O che
 wget https://model-checkpoints.fly.storage.tigris.dev/av_dfot_85k_ema_200m.pt -O checkpoints/av_huge/av_dfot_85k_ema_200m.pt
 ```
 
-### Reference docs for FP8:
-1. https://github.com/pytorch/ao
-2. https://github.com/pytorch/torchtitan/blob/main/torchtitan/experiments/flux/README.md
-3. https://github.com/xdit-project/xDiT/tree/main
-5. https://developer.nvidia.com/blog/how-implement-performance-metrics-cuda-cc/
+### Reference docs for FP8 and Compiler Optimization:
+* https://github.com/pytorch/ao
+* https://github.com/pytorch/torchtitan/blob/main/torchtitan/experiments/flux/README.md
+* https://github.com/xdit-project/xDiT/tree/main
+* https://docs.nvidia.com/deeplearning/physicsnemo/physicsnemo-core/index.html
 
 ## Potential ideas:
 1. Use NVIDIA TensorRT backend instead of torch inductor for speedups on NVIDIA GPUs.
