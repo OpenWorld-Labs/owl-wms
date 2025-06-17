@@ -10,7 +10,6 @@ from physicsnemo.utils.profiling import Profiler, annotate
 
 @torch.inference_mode()
 def time_with_cuda_events(func):
-    torch.cuda.synchronize()
     torch.cuda.reset_peak_memory_stats()
     start_event = torch.cuda.Event(enable_timing=True)
     end_event = torch.cuda.Event(enable_timing=True)
