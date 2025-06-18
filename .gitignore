@@ -11,3 +11,4 @@ owl-vaes/
 *trace.json
 physicsnemo_profiling_outputs
 tl_out
+*.log
