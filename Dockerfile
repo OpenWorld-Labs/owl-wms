@@ -13,6 +13,7 @@ RUN apt-get update && \
     less \
     vim \
     software-properties-common \
+    libopenmpi-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

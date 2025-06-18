@@ -1,4 +1,5 @@
 torchao
+tensorrt_llm
 opencv-python
 wandb
 einops

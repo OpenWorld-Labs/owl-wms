@@ -6,6 +6,11 @@ We are aiming to hit relatively high frame-rates on models. The purpose of this 
 TORCH_TRACE="/tmp/tracedir" python -m profiling.generic_forward
 tlparse /tmp/tracedir/<latest .log file> --overwrite
 
+This generates logs at:
+1. `physicsnemo_profiling_outputs/torch` for general trace of code, including the kernel level.
+2. `tl_out` Torch logs parsed to give compilation logs and code for each kernel.
+3. Torch inductor kernel wise logs in a path like, if benchmark_kernel is enabled with unique kernel names: ` /tmp/torchinductor_root/he/cheyf5tfvypbys2w6e4vn2g5t4scttjhaxvqsyd5how6f6xp7ock.py` containing both 1 and 2.
+
 ## Sample Model Checkpoints:
 audio vae:
 ```

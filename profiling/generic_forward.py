@@ -21,11 +21,13 @@ torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cuda.matmul.allow_fp16_accumulation = True
 torch.backends.cudnn.benchmark = True
 
-torch._inductor.config.triton.unique_kernel_names = True  # remove if don't want to profile kernels individually
-torch._inductor.config.benchmark_kernel = True  # remove if don't want to benchmark kernels individually
 torch._inductor.config.max_autotune = True  # redundant with mode='max-autotune'
 torch._inductor.config.max_autotune_gemm = True  # not redundant, by default False
 torch._inductor.config.max_autotune_pointwise = True  # not redundant, by default False
+
+# enable for torch inductor profiling
+# torch._inductor.config.triton.unique_kernel_names = True  # remove if don't want to profile kernels individually
+# torch._inductor.config.benchmark_kernel = True  # remove if don't want to benchmark kernels individually
 
 ## Model Setup
 wm_cfg = "configs/av.yml"
