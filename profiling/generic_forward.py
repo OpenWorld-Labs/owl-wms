@@ -11,20 +11,7 @@ from owl_wms.utils.owl_vae_bridge import get_decoder_only
 
 from .profiler import profile_fn, print_results
 
-
-def reset_torch_compiler_configs():
-    torch._dynamo.reset()
-    ## Torch Dynamo Setup
-    allow_ops_in_compiled_graph()
-    # torch.compile flags
-    torch._inductor.config.conv_1x1_as_mm = True
-    torch.backends.cuda.matmul.allow_tf32 = True
-    torch.backends.cuda.matmul.allow_fp16_accumulation = True
-    torch.backends.cudnn.benchmark = True
-
-    torch._inductor.config.max_autotune = True  # redundant with mode='max-autotune'
-    torch._inductor.config.max_autotune_gemm = True  # not redundant, by default False
-    torch._inductor.config.max_autotune_pointwise = True  # not redundant, by default False
+allow_ops_in_compiled_graph()
 
 
 def model_setup():
@@ -63,7 +50,7 @@ def create_dummy_inputs():
 
 def profile_baseline(world_model, img_dec, audio_dec, dummy, dummy_pred_audio):
     ## Baseline Profile
-    reset_torch_compiler_configs()
+    torch._dynamo.reset()
 
     res_wm = profile_fn(world_model, dummy)
     print_results(res_wm, "Baseline - WM")
@@ -86,29 +73,33 @@ if __name__ == "__main__":
     profile_baseline(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
 
     from .inductor_compile import profile_torch_compile_inductor, profile_torch_compile_inductor_fp8_torchao, profile_torch_compile_inductor_fp8_tensorrt
+    print("-------------------------------- Inductor Compile --------------------------------")
+    torch._dynamo.reset()
+    torch._inductor.config.conv_1x1_as_mm = True
+    torch.backends.cuda.matmul.allow_tf32 = True
+    torch.backends.cuda.matmul.allow_fp16_accumulation = True
+    torch.backends.cudnn.benchmark = True
     try:
-        reset_torch_compiler_configs()
-        profile_torch_compile_inductor(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+        # profile_torch_compile_inductor(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
 
-        reset_torch_compiler_configs()
-        profile_torch_compile_inductor_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+        # profile_torch_compile_inductor_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
 
-        reset_torch_compiler_configs()
         profile_torch_compile_inductor_fp8_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
     except Exception as e:
         print(f"Error in inductor compile: {e}")
 
-    from .tensorrt_compile import profile_torch_compile_tensorrt, profile_torch_compile_tensorrt_fp8_torchao, profile_torch_compile_tensorrt_fp8_tensorrt
-    try:
-        reset_torch_compiler_configs()
-        profile_torch_compile_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
 
-        reset_torch_compiler_configs()
-        profile_torch_compile_tensorrt_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+    # from .tensorrt_compile import profile_torch_compile_tensorrt, profile_torch_compile_tensorrt_fp8_torchao, profile_torch_compile_tensorrt_fp8_tensorrt
+    # print("-------------------------------- TensorRT Compile --------------------------------")
+    # torch._dynamo.reset()
+    # try:
+    #     profile_torch_compile_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
 
-        reset_torch_compiler_configs()
-        profile_torch_compile_tensorrt_fp8_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
-    except Exception as e:
-        print(f"Error in tensorrt compile: {e}")
+    #     profile_torch_compile_tensorrt_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+
+    #     profile_torch_compile_tensorrt_fp8_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+    # except Exception as e:
+    #     print(f"Error in tensorrt compile: {type(e)}")
+    #     print(f"{e} {e.__traceback__}")
 
     profiler.finalize()

@@ -27,7 +27,7 @@ def time_with_cuda_events(func):
 
 
 @torch.inference_mode()
-def profile_fn(fn, dummy_input, n_warmup=10, n_eval=10):
+def profile_fn(fn, dummy_input, n_warmup=20, n_eval=10):
     def x():
         if isinstance(dummy_input, tuple):
             return tuple(torch.randn_like(t) for t in dummy_input)

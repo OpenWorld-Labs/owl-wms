@@ -1,7 +1,7 @@
 from physicsnemo.utils.profiling import Profiler
 import torch
 import modelopt.torch.quantization as mtq  # torch-tensorrt model optimizer
-import torch_tensorrt as torchtrt
+import torch_tensorrt
 from modelopt.torch.quantization.utils import export_torch_mode
 
 from einops._torch_specific import allow_ops_in_compiled_graph  # requires einops>=0.6.1
