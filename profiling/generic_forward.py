@@ -85,14 +85,30 @@ if __name__ == "__main__":
 
     profile_baseline(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
 
-    from inductor_compile import profile_torch_compile_inductor, profile_torch_compile_inductor_fp8_torchao, profile_torch_compile_inductor_fp8_tensorrt
-    profile_torch_compile_inductor(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
-    profile_torch_compile_inductor_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
-    profile_torch_compile_inductor_fp8_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+    from .inductor_compile import profile_torch_compile_inductor, profile_torch_compile_inductor_fp8_torchao, profile_torch_compile_inductor_fp8_tensorrt
+    try:
+        reset_torch_compiler_configs()
+        profile_torch_compile_inductor(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
 
-    from tensorrt_compile import profile_torch_compile_tensorrt, profile_torch_compile_tensorrt_fp8_torchao, profile_torch_compile_tensorrt_fp8_tensorrt
-    profile_torch_compile_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
-    profile_torch_compile_tensorrt_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
-    profile_torch_compile_tensorrt_fp8_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+        reset_torch_compiler_configs()
+        profile_torch_compile_inductor_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+
+        reset_torch_compiler_configs()
+        profile_torch_compile_inductor_fp8_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+    except Exception as e:
+        print(f"Error in inductor compile: {e}")
+
+    from .tensorrt_compile import profile_torch_compile_tensorrt, profile_torch_compile_tensorrt_fp8_torchao, profile_torch_compile_tensorrt_fp8_tensorrt
+    try:
+        reset_torch_compiler_configs()
+        profile_torch_compile_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+
+        reset_torch_compiler_configs()
+        profile_torch_compile_tensorrt_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+
+        reset_torch_compiler_configs()
+        profile_torch_compile_tensorrt_fp8_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+    except Exception as e:
+        print(f"Error in tensorrt compile: {e}")
 
     profiler.finalize()

@@ -14,7 +14,6 @@ from .profiler import profile_fn, print_results
 
 def profile_torch_compile_inductor(world_model, img_dec, audio_dec, dummy, dummy_pred_audio):
     ## Torch Compile with Inductor
-    reset_torch_compiler_configs()
 
     compiled_world_model = torch.compile(world_model, mode='max-autotune', dynamic=False, fullgraph=True)
     compiled_img_dec = torch.compile(img_dec, mode='max-autotune', dynamic=False, fullgraph=True)

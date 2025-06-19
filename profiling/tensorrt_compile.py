@@ -14,7 +14,6 @@ from .profiler import profile_fn, print_results
 
 def profile_torch_compile_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio):
     ## Torch Compile with Torch-TensorRT
-    reset_torch_compiler_configs()
 
     tensorrt_backend_args = {
         "use_explicit_typing": True,
