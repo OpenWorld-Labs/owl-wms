@@ -98,29 +98,7 @@ tensorrt_backend_args = {
     'debug': True,
 }
 
-class MyModule(torch.nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.linear1 = torch.nn.Linear(10,10)
-        self.linear2 = torch.nn.Linear(10,30).half()
-        self.linear3 = torch.nn.Linear(30,40)
-
-    def forward(self, x):
-        x = self.linear1(x)
-        x = x.to(torch.float16)
-        x = self.linear2(x)
-        x = x.to(torch.float32)
-        x = self.linear3(x)
-        return x
-
-inputs = torch.randn((1, 10), dtype=torch.float32).cuda()
-mod = MyModule().eval().cuda()
-
-compiled_dummy = torch.compile(mod, backend="torch_tensorrt", dynamic=False, fullgraph=True, options=tensorrt_backend_args)
-res = profile_fn(compiled_dummy, inputs)
-print_results(res, "Torch Compile TensorRT - DUMMY")
-
-# compiled_world_model = torch.compile(world_model, backend="torch_tensorrt", dynamic=False, fullgraph=True, options=tensorrt_backend_args)
+compiled_world_model = torch.compile(world_model, backend="torch_tensorrt", dynamic=False, fullgraph=True, options=tensorrt_backend_args)
 
 # imge_cnn_configs = {
 #     "device": torch_tensorrt.Device("dla:0", allow_gpu_fallback=True)
@@ -129,8 +107,8 @@ print_results(res, "Torch Compile TensorRT - DUMMY")
 
 # compiled_audio_dec = torch.compile(audio_dec, backend="torch_tensorrt", dynamic=False, fullgraph=True, options=tensorrt_backend_args)
 
-# res_wm = profile_fn(compiled_world_model, dummy)
-# print_results(res_wm, "Torch Compile TensorRT - WM")
+res_wm = profile_fn(compiled_world_model, dummy)
+print_results(res_wm, "Torch Compile TensorRT - WM")
 
 # res_img = profile_fn(compiled_img_dec, dummy_x[0])
 # print_results(res_img, "Torch Compile TensorRT - IMG")

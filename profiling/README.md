@@ -8,7 +8,7 @@ python -m profiling.generic_forward
 or with logs:
 
 TORCHDYNAMO_VERBOSE=1 TORCH_TRACE="/tmp/tracedir" python -m profiling.generic_forward > out.log 2>&1
-tlparse /tmp/tracedir/dedicated_log_torch_trace_py_e8jxc.log --overwrite
+tlparse /tmp/tracedir/dedicated_log_torch_trace_0tu4i43n.log --overwrite
 
 This generates logs at:
 1. `physicsnemo_profiling_outputs/torch` for general trace of code, including the kernel level.
