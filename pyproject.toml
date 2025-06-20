@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "owl_wms"
+version = "0.1"
+description = "OWL World Models"
+readme = "README.md"
+dynamic = ["dependencies"]
+
+[tool.setuptools.packages.find]
+include = ["owl_wms*"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}

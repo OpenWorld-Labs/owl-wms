@@ -1,0 +1,14 @@
+checkpoints/**/*.pt
+venv/
+__pycache__/*
+generated_videos/
+owl-vaes/
+*.pt
+*.env
+*.pyc
+.vscode/*
+*.egg-info/*
+*trace.json
+physicsnemo_profiling_outputs
+tl_out
+*.log

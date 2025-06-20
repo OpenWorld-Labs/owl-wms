@@ -1,3 +1,4 @@
+torchao
 opencv-python
 wandb
 einops
@@ -8,5 +9,17 @@ diffusers
 accelerate
 boto3
 python-dotenv
+moviepy
 wandb[media]
-moviepy==1.0.3
+torchmetrics
+vector-quantize-pytorch
+ray
+kornia
+datasets
+huggingface-hub
+torchtyping
+tlparse
+alias-free-torch
+git+https://github.com/shahbuland/PerceptualSimilarity.git
+git+https://github.com/sypsyp97/convnext_perceptual_loss.git
+git+https://github.com/KellerJordan/Muon.git
