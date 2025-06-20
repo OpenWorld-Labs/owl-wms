@@ -1,8 +1,5 @@
 from physicsnemo.utils.profiling import Profiler
 import torch
-import modelopt.torch.quantization as mtq  # torch-tensorrt model optimizer
-import torch_tensorrt as torchtrt
-from modelopt.torch.quantization.utils import export_torch_mode
 
 from einops._torch_specific import allow_ops_in_compiled_graph  # requires einops>=0.6.1
 
@@ -72,24 +69,28 @@ if __name__ == "__main__":
 
     profile_baseline(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
 
-    from .inductor_compile import profile_torch_compile_inductor, profile_torch_compile_inductor_fp8_torchao, profile_torch_compile_inductor_fp8_tensorrt
+    from .inductor_compile import profile_torch_compile_inductor, profile_torch_compile_inductor_fp8_torchao
     print("-------------------------------- Inductor Compile --------------------------------")
     torch._dynamo.reset()
     torch._inductor.config.conv_1x1_as_mm = True
+    torch._inductor.config.epilogue_fusion = False
+    # torch._inductor.config.coordinate_descent_tuning = True
+    # torch._inductor.config.coordinate_descent_check_all_directions = True
+    
     torch.backends.cuda.matmul.allow_tf32 = True
     torch.backends.cuda.matmul.allow_fp16_accumulation = True
     torch.backends.cudnn.benchmark = True
+    # torch._inductor.config.force_fuse_int_mm_with_mul = True
+    # torch._inductor.config.use_mixed_mm = True
     try:
         # profile_torch_compile_inductor(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
 
-        # profile_torch_compile_inductor_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
-
-        profile_torch_compile_inductor_fp8_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
+        profile_torch_compile_inductor_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
     except Exception as e:
         print(f"Error in inductor compile: {e}")
 
 
-    # from .tensorrt_compile import profile_torch_compile_tensorrt, profile_torch_compile_tensorrt_fp8_torchao, profile_torch_compile_tensorrt_fp8_tensorrt
+    # from .tensorrt_compile import profile_torch_compile_tensorrt, profile_torch_compile_tensorrt_fp8_tensorrt
     # print("-------------------------------- TensorRT Compile --------------------------------")
     # torch._dynamo.reset()
     # try:

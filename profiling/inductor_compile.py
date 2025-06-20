@@ -8,10 +8,17 @@ from owl_wms.utils.owl_vae_bridge import get_decoder_only
 
 from .profiler import profile_fn, print_results
 
-# model quantization imports
-import modelopt.torch.quantization as mtq  # torch-tensorrt model optimizer
-import torch_tensorrt as torchtrt
-from modelopt.torch.quantization.utils import export_torch_mode
+# torchao quantization
+import torchao
+# autoquant uses int8 by default with additional support for int4, not FP8
+from torchao.quantization import (
+    quantize_,
+    Float8WeightOnlyConfig,
+    Float8StaticActivationFloat8WeightConfig,
+    Float8DynamicActivationFloat8WeightConfig,
+    PerTensor,
+    PerRow,
+)
 
 
 def profile_torch_compile_inductor(world_model, img_dec, audio_dec, dummy, dummy_pred_audio):
@@ -33,30 +40,23 @@ def profile_torch_compile_inductor(world_model, img_dec, audio_dec, dummy, dummy
 
 def profile_torch_compile_inductor_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio):
     ## Torch Compile with Inductor + FP8 with torchao
-    pass
 
-
-def profile_torch_compile_inductor_fp8_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio):
-    ## Torch Compile with Inductor + FP8 with torch-tensorrt
-    quant_cfg = mtq.FP8_DEFAULT_CFG
-
-    def calibrate_loop(model):
-        # add a training loop to calibrate the quantized model
-        pass
-
-    quantized_world_model = mtq.quantize(world_model, quant_cfg, forward_loop=calibrate_loop)
-    # quantized_img_dec = mtq.quantize(img_dec, quant_cfg, forward_loop=calibrate_loop)
-    # quantized_audio_dec = mtq.quantize(audio_dec, quant_cfg, forward_loop=calibrate_loop)
-
-    compiled_world_model = quantized_world_model # torch.compile(quantized_world_model)
-    # compiled_img_dec = quantized_img_dec # torch.compile(quantized_img_dec)
-    # compiled_audio_dec = quantized_audio_dec # torch.compile(quantized_audio_dec)
+    compiled_world_model = torch.compile(world_model, mode='max-autotune', dynamic=False, fullgraph=True)
+    # compiled_img_dec = torch.compile(img_dec, mode='max-autotune', dynamic=False, fullgraph=True)
+    # compiled_audio_dec = torch.compile(audio_dec, mode='max-autotune', dynamic=False, fullgraph=True)
 
     res_wm = profile_fn(compiled_world_model, dummy)
-    print_results(res_wm, "Torch Compile + FP8 TensorRT - WM")
+    print_results(res_wm, "Torch Compile - WM")
+
+    quantize_(compiled_world_model, Float8DynamicActivationFloat8WeightConfig(granularity=PerRow()))
+    # quantize_(compiled_img_dec, Float8DynamicActivationFloat8WeightConfig(granularity=PerRow()))
+    # quantize_(compiled_audio_dec, Float8DynamicActivationFloat8WeightConfig(granularity=PerRow()))
+
+    res_wm = profile_fn(compiled_world_model, dummy)
+    print_results(res_wm, "Torch Compile + FP8 TorchAO - WM")
 
     # res_img = profile_fn(compiled_img_dec, dummy[0][0])
-    # print_results(res_img, "Torch Compile + FP8 TensorRT - IMG")
+    # print_results(res_img, "Torch Compile + FP8 TorchAO - IMG")
 
     # res_audio = profile_fn(compiled_audio_dec, dummy_pred_audio)
-    # print_results(res_audio, "Torch Compile + FP8 TensorRT - AUDIO")
+    # print_results(res_audio, "Torch Compile + FP8 TorchAO - AUDIO")

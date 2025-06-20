@@ -43,11 +43,28 @@ def profile_torch_compile_tensorrt(world_model, img_dec, audio_dec, dummy, dummy
     print_results(res_audio, "Torch Compile TensorRT - AUDIO")
 
 
-def profile_torch_compile_tensorrt_fp8_torchao(world_model, img_dec, audio_dec, dummy, dummy_pred_audio):
-    ## Torch Compile with Torch-TensorRT + FP8 with torchao
-    pass
-
-
 def profile_torch_compile_tensorrt_fp8_tensorrt(world_model, img_dec, audio_dec, dummy, dummy_pred_audio):
     ## Torch Compile with Torch-TensorRT + FP8 with torch-tensorrt
     pass
+    # quant_cfg = mtq.FP8_DEFAULT_CFG
+
+    # def calibrate_loop(model):
+    #     # add a training loop to calibrate the quantized model
+    #     pass
+
+    # quantized_world_model = mtq.quantize(world_model, quant_cfg, forward_loop=calibrate_loop)
+    # # quantized_img_dec = mtq.quantize(img_dec, quant_cfg, forward_loop=calibrate_loop)
+    # # quantized_audio_dec = mtq.quantize(audio_dec, quant_cfg, forward_loop=calibrate_loop)
+
+    # compiled_world_model = quantized_world_model # torch.compile(quantized_world_model)
+    # # compiled_img_dec = quantized_img_dec # torch.compile(quantized_img_dec)
+    # # compiled_audio_dec = quantized_audio_dec # torch.compile(quantized_audio_dec)
+
+    # res_wm = profile_fn(compiled_world_model, dummy)
+    # print_results(res_wm, "Torch Compile + FP8 TensorRT - WM")
+
+    # # res_img = profile_fn(compiled_img_dec, dummy[0][0])
+    # # print_results(res_img, "Torch Compile + FP8 TensorRT - IMG")
+
+    # # res_audio = profile_fn(compiled_audio_dec, dummy_pred_audio)
+    # # print_results(res_audio, "Torch Compile + FP8 TensorRT - AUDIO")
