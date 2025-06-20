@@ -9,7 +9,7 @@ from physicsnemo.utils.profiling import Profiler, annotate, profile
 
 
 @torch.inference_mode()
-@profile
+# @profile
 def time_with_cuda_events(func):
     torch.cuda.reset_peak_memory_stats()
     start_event = torch.cuda.Event(enable_timing=True)
@@ -27,7 +27,7 @@ def time_with_cuda_events(func):
 
 
 @torch.inference_mode()
-def profile_fn(fn, dummy_input, n_warmup=20, n_eval=10):
+def profile_fn(fn, dummy_input, n_warmup=20, n_eval=100):
     def x():
         if isinstance(dummy_input, tuple):
             return tuple(torch.randn_like(t) for t in dummy_input)
@@ -48,12 +48,12 @@ def profile_fn(fn, dummy_input, n_warmup=20, n_eval=10):
 
     times = []
     memories = []
-    with Profiler() as prof:
-        for _ in range(n_eval):
-            time, memory, output = time_with_cuda_events(lambda: wrapper(inputs))
-            prof.step()
-            times.append(time)
-            memories.append(memory)
+    # with Profiler() as prof:
+    for _ in range(n_eval):
+        time, memory, output = time_with_cuda_events(lambda: wrapper(inputs))
+        # prof.step()
+        times.append(time)
+        memories.append(memory)
     times = np.array(times)
     memories = np.array(memories)
 
@@ -80,4 +80,6 @@ def print_results(res, header=None):
     print(f"Min: {res['min_time']:.2f}ms, {res['min_memory']:.2f}MB", end = "    \n")
     print(f"Max: {res['max_time']:.2f}ms, {res['max_memory']:.2f}MB", end = "    \n")
     print(f"Std: {res['std_time']:.2f}ms, {res['std_memory']:.2f}MB", end = "    \n")
-    print(f"Avg FPS: {1000./res['mean_time']:.2f}FPS", end = "\n\n")
+    print(f"Avg FPS: {1000./res['mean_time']:.2f}FPS")
+    print(f"Min FPS: {1000./res['max_time']:.2f}FPS")
+    print(f"Max FPS: {1000./res['min_time']:.2f}FPS", end = "\n\n")

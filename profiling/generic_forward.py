@@ -52,17 +52,17 @@ def profile_baseline(world_model, img_dec, audio_dec, dummy, dummy_pred_audio):
     res_wm = profile_fn(world_model, dummy)
     print_results(res_wm, "Baseline - WM")
 
-    res_img = profile_fn(img_dec, dummy[0][0])
-    print_results(res_img, "Baseline - IMG")
+    # res_img = profile_fn(img_dec, dummy[0][0])
+    # print_results(res_img, "Baseline - IMG")
 
-    res_audio = profile_fn(audio_dec, dummy_pred_audio)
-    print_results(res_audio, "Baseline - AUDIO")
+    # res_audio = profile_fn(audio_dec, dummy_pred_audio)
+    # print_results(res_audio, "Baseline - AUDIO")
 
 
 if __name__ == "__main__":
     # PhysicsNemo Profiler which is a singleton class so can set the configs here
-    profiler = Profiler()
-    profiler.enable("torch")
+    # profiler = Profiler()
+    # profiler.enable("torch")
 
     world_model, img_dec, audio_dec = model_setup()
     dummy, dummy_pred_audio = create_dummy_inputs()
@@ -73,15 +73,31 @@ if __name__ == "__main__":
     print("-------------------------------- Inductor Compile --------------------------------")
     torch._dynamo.reset()
     torch._inductor.config.conv_1x1_as_mm = True
+    # fuse to prevent conversion to higher dtype even when output is lower dtype
+    torch._inductor.config.force_fuse_int_mm_with_mul = True
+    torch._inductor.config.use_mixed_mm = True
+
+    # search in all directions in kernel space
+    torch._inductor.config.coordinate_descent_tuning = True
+    torch._inductor.config.coordinate_descent_check_all_directions = True
+    # some people recommend to disable epilogue and prologue fusion to allow better kernel search by inductor, apparently fusion reduces search performance
     torch._inductor.config.epilogue_fusion = False
-    # torch._inductor.config.coordinate_descent_tuning = True
-    # torch._inductor.config.coordinate_descent_check_all_directions = True
-    
-    torch.backends.cuda.matmul.allow_tf32 = True
+    torch._inductor.config.prologue_fusion = False
+    torch._inductor.config.benchmark_fusion = True
+    torch._inductor.config.benchmark_kernel = True
+
+    torch._inductor.config.use_fast_math = True
+    torch._inductor.config.cuda.use_fast_math = True
+    torch._inductor.config.freezing = True
+    torch._inductor.config.aggressive_fusion = True
+
+    torch.set_float32_matmul_precision("medium")  # use bf16 or TF32 for fp32 matmul
+    torch.backends.cuda.enable_flash_sdp(True)
+    torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = True
+    torch.backends.cuda.matmul.allow_bf16_reduced_precision_reduction = True
     torch.backends.cuda.matmul.allow_fp16_accumulation = True
     torch.backends.cudnn.benchmark = True
-    # torch._inductor.config.force_fuse_int_mm_with_mul = True
-    # torch._inductor.config.use_mixed_mm = True
+
     try:
         # profile_torch_compile_inductor(world_model, img_dec, audio_dec, dummy, dummy_pred_audio)
 
@@ -103,4 +119,4 @@ if __name__ == "__main__":
     #     print(f"Error in tensorrt compile: {type(e)}")
     #     print(f"{e} {e.__traceback__}")
 
-    profiler.finalize()
+    # profiler.finalize()

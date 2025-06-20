@@ -1,315 +1,315 @@
-TYPE_CHECKING
-_cache_config_ignore_prefix
-_collective.auto_select
-_collective.one_shot_all_reduce_threshold_bytes
-_fuse_ddp_bucket_size
-_fuse_ddp_communication
-_fuse_ddp_communication_passes
-_micro_pipeline_tp
-_pre_fusion_custom_pass
-_profile_var
-_raise_error_for_testing
-_save_config_ignore
-add_pre_grad_passes
-aggressive_fusion
-allow_buffer_reuse
-always_complex_memory_overlap_TESTING_ONLY
-always_keep_tensor_constants
-annotate_training
-aot_inductor.allow_stack_allocation
-aot_inductor.compile_wrapper_with_O0
-aot_inductor.debug_compile
-aot_inductor.debug_intermediate_value_printer
-aot_inductor.dump_aoti_minifier
-aot_inductor.filtered_kernel_names
-aot_inductor.force_mmap_weights
-aot_inductor.metadata
-aot_inductor.output_path
-aot_inductor.package
-aot_inductor.package_constants_in_so
-aot_inductor.package_cpp_only
-aot_inductor.presets
-aot_inductor.raise_error_on_ignored_optimization
-aot_inductor.repro_level
-aot_inductor.serialized_in_spec
-aot_inductor.serialized_out_spec
-aot_inductor.use_minimal_arrayref_interface
-aot_inductor.use_runtime_constant_folding
-assert_indirect_indexing
-assume_aligned_inputs
-autoheuristic_collect
-autoheuristic_log_path
-autoheuristic_use
-autotune_fallback_to_aten
-autotune_in_subproc
-autotune_local_cache
-autotune_multi_device
-autotune_num_choices_displayed
-autotune_remote_cache
-b2b_gemm_pass
-batch_fusion
-benchmark_combo_kernel
-benchmark_epilogue_fusion
-benchmark_fusion
-benchmark_harness
-benchmark_kernel
-bundle_triton_into_fx_graph_cache
-bundled_autotune_remote_cache
-bw_outputs_user_visible
-can_inplace_pad_graph_input
-check_stack_no_cycles_TESTING_ONLY
-combo_kernel_allow_mixed_sizes
-combo_kernel_foreach_dynamic_shapes
-combo_kernels
-combo_kernels_autotune
-comment_origin
-compile_threads
-comprehensive_padding
-compute_all_bounds
-constant_and_index_propagation
-conv_1x1_as_mm
-coordinate_descent_check_all_directions
-coordinate_descent_search_radius
-coordinate_descent_tuning
-cpp.cxx
-cpp.descriptive_names
-cpp.dynamic_threads
-cpp.enable_concat_linear
-cpp.enable_floating_point_contract_flag
-cpp.enable_grouped_gemm_template
-cpp.enable_kernel_profile
-cpp.enable_loop_tail_vec
-cpp.enable_tiling_heuristics
-cpp.enable_unsafe_math_opt_flag
-cpp.fallback_scatter_reduce_sum
-cpp.gemm_cache_blocking
-cpp.gemm_max_k_slices
-cpp.gemm_thread_factors
-cpp.inject_log1p_bug_TESTING_ONLY
-cpp.inject_relu_bug_TESTING_ONLY
-cpp.max_horizontal_fusion_size
-cpp.min_chunk_size
-cpp.no_redundant_loops
-cpp.simdlen
-cpp.threads
-cpp.vec_isa_ok
-cpp.weight_prepack
-cpp_wrapper
-cpu_backend
-cuda.arch
-cuda.compile_opt_level
-cuda.cuda_cxx
-cuda.cutlass_backend_min_gemm_size
-cuda.cutlass_dir
-cuda.cutlass_instantiation_level
-cuda.cutlass_max_profiling_configs
-cuda.cutlass_max_profiling_swizzle_options
-cuda.cutlass_op_allowlist_regex
-cuda.cutlass_op_denylist_regex
-cuda.enable_cuda_lto
-cuda.enable_debug_info
-cuda.enable_ptxas_info
-cuda.generate_test_runner
-cuda.use_fast_math
-cuda.version
-cuda_backend
-custom_op_default_layout_constraint
-dce
-debug
-debug_fusion
-debug_index_asserts
-debug_ir_traceback
-decompose_mem_bound_mm
-developer_warnings
-disable_cpp_codegen
-disable_padding_cpu
-disable_progress
-dynamic_scale_rblock
-efficient_conv_bn_eval_fx_passes
-emulate_precision_casts
-enable_auto_functionalized_v2
-enable_linear_binary_folding
-enabled_metric_tables
-epilogue_fusion
-epilogue_fusion_first
-estimate_op_runtime
-external_matmul
-fallback_random
-force_disable_caches
-force_fuse_int_mm_with_mul
-force_layout_optimization
-force_pointwise_cat
-force_same_precision
-force_shape_pad
-freezing
-freezing_discard_parameters
-fx_graph_cache
-fx_graph_remote_cache
-fx_passes_numeric_check
-generate_intermediate_hooks
-global_cache_dir
-graph_partition
-group_fusion
-halide.asserts
-halide.cpu_target
-halide.debug
-halide.gpu_target
-halide.scan_kernels
-halide.scheduler_cpu
-halide.scheduler_cuda
-implicit_fallbacks
-inplace_buffers
-inplace_padding
-inter_node_bw
-intra_node_bw
-is_nightly_or_source
-is_predispatch
-joint_custom_post_pass
-joint_custom_pre_pass
-joint_graph_constant_folding
-keep_output_stride
-kernel_name_max_ops
-layout_opt_default
-layout_optimization
-loop_ordering_after_fusion
-max_autotune
-max_autotune_conv_backends
-max_autotune_gemm
-max_autotune_gemm_backends
-max_autotune_gemm_search_space
-max_autotune_pointwise
-max_autotune_subproc_graceful_timeout_seconds
-max_autotune_subproc_result_timeout_seconds
-max_autotune_subproc_terminate_timeout_seconds
-max_epilogue_benchmarked_choices
-max_fusion_size
-max_pointwise_cat_inputs
-memory_planning
-memory_pool
-mixed_mm_choice
-nan_asserts
-optimize_scatter_upon_const_tensor
-pad_channels_last
-pad_outputs
-padding_alignment_bytes
-padding_stride_threshold
-pattern_matcher
-permute_fusion
-pick_loop_orders
-post_grad_custom_post_pass
-post_grad_custom_pre_pass
-post_grad_fusion_options
-pre_grad_custom_pass
-pre_grad_fusion_options
-profile_bandwidth
-profile_bandwidth_output
-profile_bandwidth_regex
-profile_bandwidth_with_do_bench_using_profiling
-profiler_mark_wrapper_call
-prologue_fusion
-realize_acc_reads_threshold
-realize_opcount_threshold
-realize_reads_threshold
-remove_pre_grad_passes
-reorder_for_compute_comm_overlap
-reorder_for_compute_comm_overlap_passes
-reorder_for_locality
-reorder_for_peak_memory
-rocm.arch
-rocm.ck_dir
-rocm.ck_supported_arch
-rocm.compile_opt_level
-rocm.flush_denormals
-rocm.generate_test_runner
-rocm.is_debug
-rocm.kBatch_sweep
-rocm.n_max_profiling_configs
-rocm.print_kernel_resource_usage
-rocm.rocm_home
-rocm.save_temps
-rocm.split_k_threshold
-rocm.use_fast_math
-rocm.use_preselected_instances
-save_args
-scalar_asserts
-score_fusion_memory_threshold
-search_autotune_cache
-shape_padding
-size_asserts
-sleep_sec_TESTING_ONLY
-split_cat_fx_passes
-split_reductions
-static_weight_shapes
-test_configs.autotune_choice_desc_regex
-test_configs.autotune_choice_name_regex
-test_configs.force_extern_kernel_in_multi_template
-test_configs.graphsafe_rng_func_ignores_fallback_random
-test_configs.max_mm_configs
-test_configs.runtime_triton_dtype_assert
-trace.compile_profile
-trace.debug_dir
-trace.debug_log
-trace.dot_graph_shape
-trace.draw_orig_fx_graph
-trace.enabled
-trace.fx_graph
-trace.fx_graph_transformed
-trace.graph_diagram
-trace.info_log
-trace.ir_post_fusion
-trace.ir_pre_fusion
-trace.log_autotuning_results
-trace.log_inductor_triton_kernel_to_post_grad_node_info
-trace.log_url_for_graph_xform
-trace.output_code
-trace.save_real_tensors
-trace.upload_tar
-triton.autotune_at_compile_time
-triton.autotune_cublasLt
-triton.autotune_pointwise
-triton.codegen_upcast_to_fp32
-triton.cooperative_reductions
-triton.cudagraph_dynamic_shape_warn_limit
-triton.cudagraph_skip_dynamic_graphs
-triton.cudagraph_support_input_mutation
-triton.cudagraph_trees
-triton.cudagraph_trees_history_recording
-triton.cudagraph_unexpected_rerecord_limit
-triton.cudagraphs
-triton.debug_sync_graph
-triton.debug_sync_kernel
-triton.dense_indexing
-triton.descriptive_names
-triton.divisible_by_16
-triton.enable_persistent_tma_matmul
-triton.fast_path_cudagraph_asserts
-triton.force_cooperative_reductions
-triton.force_cudagraph_sync
-triton.force_cudagraphs_warmup
-triton.inject_relu_bug_TESTING_ONLY
-triton.max_tiles
-triton.min_split_scan_rblock
-triton.multi_kernel
-triton.persistent_reductions
-triton.prefer_nd_tiling
-triton.skip_cudagraph_warmup
-triton.skip_l1_cache
-triton.slow_path_cudagraph_asserts
-triton.spill_threshold
-triton.store_cubin
-triton.tile_reductions
-triton.tiling_prevents_pointwise_fusion
-triton.tiling_prevents_reduction_fusion
-triton.unique_kernel_names
-triton.unique_user_kernel_names
-triton.use_block_ptr
-triton_kernel_default_layout_constraint
-unbacked_symint_fallback
-unroll_reductions_threshold
-unsafe_ignore_unsupported_triton_autotune_args
-use_experimental_benchmarker
-use_fast_math
-use_mixed_mm
-verbose_progress
-warn_mix_layout
-worker_start_method
+TYPE_CHECKING : False
+_cache_config_ignore_prefix : ['trace', 'cuda.cutlass_dir', 'worker_start_method', 'compile_threads', 'post_grad_custom_post_pass', 'post_grad_custom_pre_pass', 'always_complex_memory_overlap_TESTING_ONLY']
+_collective.auto_select : False
+_collective.one_shot_all_reduce_threshold_bytes : 131072
+_fuse_ddp_bucket_size : 25
+_fuse_ddp_communication : False
+_fuse_ddp_communication_passes : ['fuse_ddp_with_concat_op', 'schedule_comm_wait']
+_micro_pipeline_tp : False
+_pre_fusion_custom_pass : None
+_profile_var : 
+_raise_error_for_testing : False
+_save_config_ignore : ['trace.upload_tar', 'joint_custom_pre_pass', 'joint_custom_post_pass', 'pre_grad_custom_pass', 'aot_inductor.repro_level', 'aot_inductor.dump_aoti_minifier']
+add_pre_grad_passes : None
+aggressive_fusion : False
+allow_buffer_reuse : True
+always_complex_memory_overlap_TESTING_ONLY : False
+always_keep_tensor_constants : False
+annotate_training : False
+aot_inductor.allow_stack_allocation : False
+aot_inductor.compile_wrapper_with_O0 : False
+aot_inductor.debug_compile : False
+aot_inductor.debug_intermediate_value_printer : 0
+aot_inductor.dump_aoti_minifier : False
+aot_inductor.filtered_kernel_names : None
+aot_inductor.force_mmap_weights : False
+aot_inductor.metadata : {}
+aot_inductor.output_path : 
+aot_inductor.package : False
+aot_inductor.package_constants_in_so : True
+aot_inductor.package_cpp_only : False
+aot_inductor.presets : {}
+aot_inductor.raise_error_on_ignored_optimization : True
+aot_inductor.repro_level : 2
+aot_inductor.serialized_in_spec : 
+aot_inductor.serialized_out_spec : 
+aot_inductor.use_minimal_arrayref_interface : False
+aot_inductor.use_runtime_constant_folding : False
+assert_indirect_indexing : True
+assume_aligned_inputs : False
+autoheuristic_collect : 
+autoheuristic_log_path : DEFAULT
+autoheuristic_use : mixed_mm
+autotune_fallback_to_aten : True
+autotune_in_subproc : False
+autotune_local_cache : True
+autotune_multi_device : False
+autotune_num_choices_displayed : 10
+autotune_remote_cache : None
+b2b_gemm_pass : False
+batch_fusion : True
+benchmark_combo_kernel : False
+benchmark_epilogue_fusion : True
+benchmark_fusion : False
+benchmark_harness : True
+benchmark_kernel : False
+bundle_triton_into_fx_graph_cache : True
+bundled_autotune_remote_cache : None
+bw_outputs_user_visible : True
+can_inplace_pad_graph_input : False
+check_stack_no_cycles_TESTING_ONLY : False
+combo_kernel_allow_mixed_sizes : 1
+combo_kernel_foreach_dynamic_shapes : False
+combo_kernels : False
+combo_kernels_autotune : 1
+comment_origin : False
+compile_threads : 24
+comprehensive_padding : True
+compute_all_bounds : False
+constant_and_index_propagation : True
+conv_1x1_as_mm : False
+coordinate_descent_check_all_directions : False
+coordinate_descent_search_radius : 1
+coordinate_descent_tuning : False
+cpp.cxx : (None, 'g++')
+cpp.descriptive_names : original_aten
+cpp.dynamic_threads : False
+cpp.enable_concat_linear : False
+cpp.enable_floating_point_contract_flag : off
+cpp.enable_grouped_gemm_template : False
+cpp.enable_kernel_profile : False
+cpp.enable_loop_tail_vec : True
+cpp.enable_tiling_heuristics : True
+cpp.enable_unsafe_math_opt_flag : False
+cpp.fallback_scatter_reduce_sum : True
+cpp.gemm_cache_blocking : None
+cpp.gemm_max_k_slices : 1
+cpp.gemm_thread_factors : None
+cpp.inject_log1p_bug_TESTING_ONLY : None
+cpp.inject_relu_bug_TESTING_ONLY : None
+cpp.max_horizontal_fusion_size : 16
+cpp.min_chunk_size : 4096
+cpp.no_redundant_loops : True
+cpp.simdlen : None
+cpp.threads : -1
+cpp.vec_isa_ok : None
+cpp.weight_prepack : True
+cpp_wrapper : False
+cpu_backend : cpp
+cuda.arch : None
+cuda.compile_opt_level : -O1
+cuda.cuda_cxx : None
+cuda.cutlass_backend_min_gemm_size : 1
+cuda.cutlass_dir : /usr/local/lib/python3.12/dist-packages/third_party/cutlass
+cuda.cutlass_instantiation_level : 0
+cuda.cutlass_max_profiling_configs : None
+cuda.cutlass_max_profiling_swizzle_options : [1, 2, 4]
+cuda.cutlass_op_allowlist_regex : None
+cuda.cutlass_op_denylist_regex : None
+cuda.enable_cuda_lto : False
+cuda.enable_debug_info : False
+cuda.enable_ptxas_info : False
+cuda.generate_test_runner : False
+cuda.use_fast_math : False
+cuda.version : None
+cuda_backend : triton
+custom_op_default_layout_constraint : needs_fixed_stride_order
+dce : False
+debug : False
+debug_fusion : False
+debug_index_asserts : False
+debug_ir_traceback : False
+decompose_mem_bound_mm : False
+developer_warnings : False
+disable_cpp_codegen : False
+disable_padding_cpu : True
+disable_progress : True
+dynamic_scale_rblock : True
+efficient_conv_bn_eval_fx_passes : False
+emulate_precision_casts : False
+enable_auto_functionalized_v2 : True
+enable_linear_binary_folding : False
+enabled_metric_tables : 
+epilogue_fusion : True
+epilogue_fusion_first : False
+estimate_op_runtime : default
+external_matmul : []
+fallback_random : False
+force_disable_caches : False
+force_fuse_int_mm_with_mul : False
+force_layout_optimization : False
+force_pointwise_cat : False
+force_same_precision : False
+force_shape_pad : False
+freezing : False
+freezing_discard_parameters : False
+fx_graph_cache : True
+fx_graph_remote_cache : None
+fx_passes_numeric_check : {'pre_grad': False, 'precision': 0.0001, 'num_iterations': 1, 'requires_optimizer': True}
+generate_intermediate_hooks : False
+global_cache_dir : None
+graph_partition : False
+group_fusion : False
+halide.asserts : False
+halide.cpu_target : host
+halide.debug : False
+halide.gpu_target : host-cuda
+halide.scan_kernels : False
+halide.scheduler_cpu : Adams2019
+halide.scheduler_cuda : Anderson2021
+implicit_fallbacks : True
+inplace_buffers : True
+inplace_padding : True
+inter_node_bw : 25
+intra_node_bw : 300
+is_nightly_or_source : False
+is_predispatch : False
+joint_custom_post_pass : None
+joint_custom_pre_pass : None
+joint_graph_constant_folding : True
+keep_output_stride : True
+kernel_name_max_ops : 10
+layout_opt_default : 1
+layout_optimization : True
+loop_ordering_after_fusion : False
+max_autotune : False
+max_autotune_conv_backends : ATEN,TRITON
+max_autotune_gemm : False
+max_autotune_gemm_backends : ATEN,TRITON,CPP
+max_autotune_gemm_search_space : DEFAULT
+max_autotune_pointwise : False
+max_autotune_subproc_graceful_timeout_seconds : 1.0
+max_autotune_subproc_result_timeout_seconds : 60.0
+max_autotune_subproc_terminate_timeout_seconds : 2.0
+max_epilogue_benchmarked_choices : 1
+max_fusion_size : 64
+max_pointwise_cat_inputs : 8
+memory_planning : False
+memory_pool : intermediates
+mixed_mm_choice : heuristic
+nan_asserts : False
+optimize_scatter_upon_const_tensor : True
+pad_channels_last : False
+pad_outputs : False
+padding_alignment_bytes : 128
+padding_stride_threshold : 1024
+pattern_matcher : True
+permute_fusion : False
+pick_loop_orders : True
+post_grad_custom_post_pass : None
+post_grad_custom_pre_pass : None
+post_grad_fusion_options : {}
+pre_grad_custom_pass : None
+pre_grad_fusion_options : {}
+profile_bandwidth : False
+profile_bandwidth_output : None
+profile_bandwidth_regex : 
+profile_bandwidth_with_do_bench_using_profiling : False
+profiler_mark_wrapper_call : False
+prologue_fusion : True
+realize_acc_reads_threshold : 8
+realize_opcount_threshold : 30
+realize_reads_threshold : 4
+remove_pre_grad_passes : None
+reorder_for_compute_comm_overlap : False
+reorder_for_compute_comm_overlap_passes : ['reorder_compute_for_overlap', 'sink_waits', 'raise_comms']
+reorder_for_locality : True
+reorder_for_peak_memory : True
+rocm.arch : []
+rocm.ck_dir : None
+rocm.ck_supported_arch : ['gfx90a', 'gfx942']
+rocm.compile_opt_level : -O2
+rocm.flush_denormals : True
+rocm.generate_test_runner : False
+rocm.is_debug : False
+rocm.kBatch_sweep : None
+rocm.n_max_profiling_configs : None
+rocm.print_kernel_resource_usage : False
+rocm.rocm_home : None
+rocm.save_temps : False
+rocm.split_k_threshold : 16
+rocm.use_fast_math : True
+rocm.use_preselected_instances : False
+save_args : False
+scalar_asserts : True
+score_fusion_memory_threshold : 10
+search_autotune_cache : False
+shape_padding : True
+size_asserts : True
+sleep_sec_TESTING_ONLY : None
+split_cat_fx_passes : True
+split_reductions : True
+static_weight_shapes : True
+test_configs.autotune_choice_desc_regex : None
+test_configs.autotune_choice_name_regex : None
+test_configs.force_extern_kernel_in_multi_template : False
+test_configs.graphsafe_rng_func_ignores_fallback_random : False
+test_configs.max_mm_configs : None
+test_configs.runtime_triton_dtype_assert : False
+trace.compile_profile : False
+trace.debug_dir : None
+trace.debug_log : False
+trace.dot_graph_shape : None
+trace.draw_orig_fx_graph : False
+trace.enabled : False
+trace.fx_graph : True
+trace.fx_graph_transformed : True
+trace.graph_diagram : False
+trace.info_log : False
+trace.ir_post_fusion : True
+trace.ir_pre_fusion : True
+trace.log_autotuning_results : False
+trace.log_inductor_triton_kernel_to_post_grad_node_info : True
+trace.log_url_for_graph_xform : None
+trace.output_code : True
+trace.save_real_tensors : False
+trace.upload_tar : None
+triton.autotune_at_compile_time : None
+triton.autotune_cublasLt : True
+triton.autotune_pointwise : True
+triton.codegen_upcast_to_fp32 : True
+triton.cooperative_reductions : False
+triton.cudagraph_dynamic_shape_warn_limit : 50
+triton.cudagraph_skip_dynamic_graphs : False
+triton.cudagraph_support_input_mutation : True
+triton.cudagraph_trees : True
+triton.cudagraph_trees_history_recording : False
+triton.cudagraph_unexpected_rerecord_limit : 128
+triton.cudagraphs : False
+triton.debug_sync_graph : False
+triton.debug_sync_kernel : False
+triton.dense_indexing : False
+triton.descriptive_names : original_aten
+triton.divisible_by_16 : True
+triton.enable_persistent_tma_matmul : False
+triton.fast_path_cudagraph_asserts : False
+triton.force_cooperative_reductions : False
+triton.force_cudagraph_sync : False
+triton.force_cudagraphs_warmup : False
+triton.inject_relu_bug_TESTING_ONLY : None
+triton.max_tiles : 2
+triton.min_split_scan_rblock : 256
+triton.multi_kernel : 0
+triton.persistent_reductions : True
+triton.prefer_nd_tiling : False
+triton.skip_cudagraph_warmup : False
+triton.skip_l1_cache : False
+triton.slow_path_cudagraph_asserts : True
+triton.spill_threshold : 16
+triton.store_cubin : False
+triton.tile_reductions : False
+triton.tiling_prevents_pointwise_fusion : True
+triton.tiling_prevents_reduction_fusion : True
+triton.unique_kernel_names : True
+triton.unique_user_kernel_names : False
+triton.use_block_ptr : False
+triton_kernel_default_layout_constraint : needs_fixed_stride_order
+unbacked_symint_fallback : 8192
+unroll_reductions_threshold : 8
+unsafe_ignore_unsupported_triton_autotune_args : False
+use_experimental_benchmarker : True
+use_fast_math : False
+use_mixed_mm : True
+verbose_progress : False
+warn_mix_layout : False
+worker_start_method : subprocess
