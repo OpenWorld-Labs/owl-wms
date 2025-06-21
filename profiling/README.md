@@ -36,3 +36,6 @@ wget https://model-checkpoints.fly.storage.tigris.dev/av_dfot_85k_ema_200m.pt -O
 * https://docs.nvidia.com/deeplearning/physicsnemo/physicsnemo-core/index.html
 * https://github.com/NVIDIA/TensorRT-Model-Optimizer/blob/main/examples/diffusers/quantization/README.md
 
+## Testing Models for Sanity Check:
+Use popular video models for sanity checking methodology:
+1. https://github.com/Wan-Video/Wan2.1
